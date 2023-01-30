@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "Health API"
+version = "0.1.0"
+description = "Simple Health API to show some data for the finance sector"
+authors = ["Mateus Cardoso <mateus_cardoso44@hotmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.89.1"
+sqlalchemy = "^2.0.0"
+termcolor = "^2.2.0"
+python-dotenv = "^0.21.1"
+aiosqlite = "^0.18.0"
+toml = "^0.10.2"
+passlib = "^1.7.4"
+pyjwt = "^2.6.0"
+python-multipart = "^0.0.5"
+
+
+[tool.poetry.group.dev.dependencies]
+uvicorn = "^0.20.0"
+typer = "^0.7.0"
+ipdb = "^0.13.11"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
