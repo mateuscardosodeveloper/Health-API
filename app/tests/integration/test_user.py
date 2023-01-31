@@ -20,7 +20,7 @@ async def test_create_user_successfully() -> None:
 async def test_authentication_user_successfully() -> None:
     async with AsyncClient(app=app, base_url="http://test") as ac:
         response = await ac.post(
-            url="/api/health/authentication",
+            url="/api/health/authenticatio",
             data={"username": "Test", "password": "test123"},
         )
 

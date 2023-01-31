@@ -1,3 +1,4 @@
+# TODO: verificar a possibilidade de adicionar o flake 8 para validação da identação
 name: CI
 
 on:
@@ -8,15 +9,18 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python
+    - name: Set up Python 3.10
       uses: actions/setup-python@v2
       with:
-        python-version: 3.10
+        python-version: 3.10.9
     - name: Install Poetry
-      run: curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+      run: curl -sSL curl -sSL https://install.python-poetry.org | python3 -
     - name: Install dependencies
       run: poetry install
     - name: Test with pytest
