@@ -23,8 +23,6 @@ class Patients(Base):
     last_name = Column(String)
     date_of_birth = Column(DateTime)
 
-    transactions = relationship('Transactions', backref='PATIENTS')
-
     def __repr__(self):
         return f"Patient({self.first_name} {self.last_name})"
 
@@ -35,8 +33,6 @@ class Pharmacies(Base):
     uuid = Column(String, primary_key=True)
     name = Column(String)
     city = Column(String)
-
-    transactions = relationship('Transactions', backref='PHARMACIES')
 
     def __repr__(self):
         return f"Pharmacie({self.name})"

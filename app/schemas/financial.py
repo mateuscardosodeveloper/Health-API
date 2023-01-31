@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Optional
 from schemas import BaseSchema
 
 
@@ -15,9 +16,26 @@ class PatientSchema(BaseSchema):
     date_of_birth: datetime
 
 
-class Transaction(BaseSchema):
+class TransactionSchema(BaseSchema):
     uuid: str
     patient: PatientSchema
     pharmacy: PharmacySchema
     amount: float
     timestamp: datetime
+
+
+class PharmacyParametersApiSchema(BaseSchema):
+    pharmacy_id: Optional[str]
+    name: Optional[str]
+    city: Optional[str]
+
+
+class PatientParametersApiSchema(BaseSchema):
+    patient_id: Optional[str]
+    first_name: Optional[str]
+
+
+class TransactionParametersApiSchema(BaseSchema):
+    transaction_id: Optional[str]
+    patient_id: Optional[str]
+    pharmacy_id: Optional[str]

@@ -13,6 +13,6 @@ class UserSchema(BaseSchema):
 
 
 class AuthTokenSchema(BaseSchema):
-    access_token: bytes
+    access_token: str
     expires_in: Union[str, datetime]
     token_type: str = 'Bearer'
