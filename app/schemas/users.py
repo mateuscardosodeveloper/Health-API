@@ -1,6 +1,8 @@
-from typing import Union
 from datetime import datetime
+from typing import Union
+
 from passlib.hash import bcrypt
+
 from schemas import BaseSchema
 
 
@@ -15,4 +17,4 @@ class UserSchema(BaseSchema):
 class AuthTokenSchema(BaseSchema):
     access_token: str
     expires_in: Union[str, datetime]
-    token_type: str = 'Bearer'
+    token_type: str = "Bearer"

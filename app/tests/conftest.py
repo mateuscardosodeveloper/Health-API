@@ -1,16 +1,13 @@
 # TODO: Criar o mock do sqlachemy usando o sqlite.
 import pytest
 
+from controllers.auth import AuthController
 from main import app
 from schemas.users import UserSchema
-from controllers.auth import AuthController
 
 
 def mock_scan_token() -> list:
-    return UserSchema(
-        username="TestUsername",
-        password="Test123"
-    )
+    return UserSchema(username="TestUsername", password="Test123")
 
 
 @pytest.fixture

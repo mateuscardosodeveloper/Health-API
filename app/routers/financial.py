@@ -1,24 +1,23 @@
 from typing import Optional
+
 from fastapi import APIRouter, Depends, Path, Query
 
 from controllers.auth import AuthController
 from controllers.financial import FinancialController
+from models.database import Patients, Pharmacies
 from schemas.financial import *
-from models.database import Pharmacies, Patients
-
 
 router = APIRouter()
 
 
 @router.get(
-    '/patients',
-    summary='Query patients',
+    "/patients",
+    summary="Query patients",
     response_model=list[PatientSchema],
-    dependencies=[Depends(AuthController.scan_token)]
+    dependencies=[Depends(AuthController.scan_token)],
 )
 async def patient_all(
-    patient_id: Optional[str] = Query(None),
-    first_name: Optional[str] = Query(None)
+    patient_id: Optional[str] = Query(None), first_name: Optional[str] = Query(None)
 ):
     filters = None
 
@@ -31,15 +30,15 @@ async def patient_all(
 
 
 @router.get(
-    '/pharmacies',
-    summary='Query pharmacies',
+    "/pharmacies",
+    summary="Query pharmacies",
     response_model=list[PharmacySchema],
-    dependencies=[Depends(AuthController.scan_token)]
+    dependencies=[Depends(AuthController.scan_token)],
 )
 async def pharmacy_all(
     pharmacy_id: Optional[str] = Query(None),
     name: Optional[str] = Query(None),
-    city: Optional[str] = Query(None)
+    city: Optional[str] = Query(None),
 ):
 
     filters = None
@@ -53,10 +52,10 @@ async def pharmacy_all(
 
 
 @router.get(
-    '/transactions',
-    summary='Query transactions',
+    "/transactions",
+    summary="Query transactions",
     response_model=list[TransactionSchema],
-    dependencies=[Depends(AuthController.scan_token)]
+    dependencies=[Depends(AuthController.scan_token)],
 )
 async def pharmacy_all(
     transaction_id: Optional[str] = Query(None),
@@ -69,7 +68,7 @@ async def pharmacy_all(
         filters = TransactionParametersApiSchema(
             transaction_id=transaction_id,
             patient_id=patient_id,
-            pharmacy_id=pharmacy_id
+            pharmacy_id=pharmacy_id,
         )
 
     return await FinancialController().query_transaction(parameter=filters)

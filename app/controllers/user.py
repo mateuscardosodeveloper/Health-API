@@ -1,22 +1,22 @@
 from uuid import uuid4
-from sqlalchemy import insert, select
+
 from fastapi import HTTPException
 from fastapi.responses import JSONResponse
-# from sqlalchemy.engine.row import LegacyRow
+from sqlalchemy import insert, select
 
+from models import engine, session
 from models.database import Users
-from models import session, engine
 from schemas.users import UserSchema
 from utils.logging import error
+
+# from sqlalchemy.engine.row import LegacyRow
 
 
 class UserController:
     @classmethod
     async def login(cls, username: str) -> Users:
         async with session() as s:
-            query = await s.execute(
-                select(Users).where(Users.username == username)
-            )
+            query = await s.execute(select(Users).where(Users.username == username))
             await engine.dispose()
 
             result = query.scalars().first()
@@ -29,9 +29,9 @@ class UserController:
     async def create(cls, user: UserSchema) -> JSONResponse:
         user.encrypt_password()
         data_insert = {
-            'uuid': str(uuid4()),
-            'username': user.username,
-            'password': user.password
+            "uuid": str(uuid4()),
+            "username": user.username,
+            "password": user.password,
         }
         return await cls.__inser_user(user=data_insert)
 
@@ -43,13 +43,10 @@ class UserController:
                 await s.commit()
             except Exception as e:
                 error(e)
-                raise HTTPException(
-                    detail='Error creating a user.', status_code=403
-                )
+                raise HTTPException(detail="Error creating a user.", status_code=403)
 
             await engine.dispose()
 
         return JSONResponse(
-            status_code=201, content={'message': 'User created successfully.'}
+            status_code=201, content={"message": "User created successfully."}
         )
-
