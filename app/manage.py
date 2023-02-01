@@ -1,4 +1,3 @@
-# TODO: Criar alias para identar o código
 import logging
 
 import typer

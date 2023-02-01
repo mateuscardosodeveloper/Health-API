@@ -8,7 +8,7 @@ class Users(Base):
     __tablename__ = "USERS"
 
     uuid = Column(String, primary_key=True)
-    username = Column(String, unique=True)  # TODO: This field need be unique not workin
+    username = Column(String, unique=True)
     password = Column(String)
 
     def __repr__(self):

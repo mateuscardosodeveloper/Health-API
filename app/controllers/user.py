@@ -38,12 +38,12 @@ class UserController:
     @classmethod
     async def __inser_user(cls, user: dict) -> JSONResponse:
         async with session() as s:
-            await s.execute(insert(Users).values(**user))
             try:
+                await s.execute(insert(Users).values(**user))
                 await s.commit()
             except Exception as e:
                 error(e)
-                raise HTTPException(detail="Error creating a user.", status_code=403)
+                raise HTTPException(detail="Username already exists.", status_code=403)
 
             await engine.dispose()
 
