@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: development
     defaults:
       run:
         working-directory: app
@@ -24,3 +25,8 @@ jobs:
       run: poetry install
     - name: Test with pytest
       run: poetry run pytest
+      env:
+        API_PREFIX: ${{ secrets.API_PREFIX }}
+        USER_PROJECT_KEY: ${{ secrets.USER_PROJECT_KEY }}
+        EXPIRATION_TIME_HOUR: ${{ secrets.EXPIRATION_TIME_HOUR }}
+
