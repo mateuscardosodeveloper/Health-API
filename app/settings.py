@@ -20,11 +20,13 @@ class InformationsApi:
 class EnvironmentVariables:
     load_dotenv()
 
-    LOG_LEVEL: str = os.environ.get("LOG_LEVEL")
+    LOG_LEVEL: str = os.environ.get("LOG_LEVEL", "INFO")
     API_PREFIX: str = os.environ.get("API_PREFIX")
     DEBUG: Optional[bool] = os.environ.get("DEBUG", False)
     USER_PROJECT_KEY: str = os.environ.get("USER_PROJECT_KEY")
-    DATABASE_SQLITE_URL: str = os.environ.get("DATABASE_SQLITE_URL")
+    DATABASE_SQLITE_URL: str = os.environ.get(
+        "DATABASE_SQLITE_URL", "sqlite+aiosqlite:///tests/db_test.db"
+    )
     EXPIRATION_TIME_HOUR: int = os.environ.get("EXPIRATION_TIME_HOUR")
 
 
