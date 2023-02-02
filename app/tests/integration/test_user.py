@@ -17,10 +17,21 @@ async def test_create_user_successfully() -> None:
 
 
 @pytest.mark.asyncio
+async def test_create_user_failed() -> None:
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        response = await ac.post(
+            url="/api/health/user", json={"username": "Test", "password": "test123"}
+        )
+
+    assert response.status_code == 403
+    assert response.json() == {"detail": "Username already exists."}
+
+
+@pytest.mark.asyncio
 async def test_authentication_user_successfully() -> None:
     async with AsyncClient(app=app, base_url="http://test") as ac:
         response = await ac.post(
-            url="/api/health/authenticatio",
+            url="/api/health/authentication",
             data={"username": "Test", "password": "test123"},
         )
 
@@ -50,3 +61,11 @@ async def test_authentication_user_wrong_password() -> None:
 
     assert response.status_code == 400
     assert response.json() == {"detail": "Wrong password."}
+
+
+def teardown_module(module) -> None:
+    import asyncio
+
+    from tests.conftest import remove_user
+
+    asyncio.run(remove_user())
